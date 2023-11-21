@@ -1,0 +1,89 @@
+I am querying a small database called superstore and providing explanations as to what my queiries are doing to the database.
+
+Database below:
+
+CREATE TABLE superstore (
+    item_id INTEGER PRIMARY KEY,
+    item_name TEXT,
+    category TEXT,
+    price DECIMAL(10, 2),
+    stock_quantity INTEGER,
+    average_rating DECIMAL(3, 2)
+);
+
+INSERT INTO superstore (item_id, item_name, category, price, stock_quantity, average_rating)
+VALUES
+    (1, 'Stainless Steel Cookware Set', 'Kitchen Supplies', 89.99, 50, 4.6),
+    (2, 'Memory Foam Mattress', 'Furnishings', 499.99, 30, 4.8),
+    (3, 'Smart LED TV', 'Electronics', 549.00, 20, 4.5),
+    (4, 'Robot Vacuum Cleaner', 'Appliances', 199.50, 40, 4.3),
+    (5, 'Wireless Bluetooth Speaker', 'Electronics', 39.99, 60, 4.2),
+    (6, 'Non-Stick Baking Set', 'Kitchen Supplies', 29.95, 80, 4.4),
+    (7, 'Cotton Bedding Set', 'Furnishings', 89.00, 25, 4.7),
+    (8, 'Smart Home Security Camera', 'Electronics', 79.95, 15, 4.1),
+    (9, 'Air Purifier', 'Appliances', 129.50, 35, 4.6),
+    (10, 'Premium Coffee Maker', 'Kitchen Supplies', 79.99, 50, 4.9),
+    (11, 'Ergonomic Office Chair', 'Furnishings', 189.00, 20, 4.5),
+    (12, 'Wireless Earbuds', 'Electronics', 49.99, 75, 4.3),
+    (13, 'Slow Cooker', 'Appliances', 49.95, 30, 4.7),
+    (14, 'Cutlery Set', 'Kitchen Supplies', 34.50, 40, 4.4),
+    (15, 'Cozy Throw Blanket', 'Furnishings', 24.99, 100, 4.2);
+
+
+SQL queiries to the database:
+
+#1./* find the lowest item ticket price*/
+
+select item_name, min(price) /* lowest item ticket price*/
+from superstore;
+
+#2. /*provide the sum price of everything*/
+
+select item_name, sum(price)  
+from superstore;
+
+#3. /*find the total number of items*/
+
+select count(*) 
+from superstore;
+
+#4.  /*find average price of everything*/
+
+select category, avg(price)  
+from superstore
+where category = 'Kitchen Supplies';
+
+#5./*select the highest priced item in the category kitchen supplies*/
+
+select category, max(price) 
+from superstore
+where category = 'Kitchen Supplies';
+
+#6./*select the lowest priced item in the category kitchen supplies*/
+
+select category, min(price) 
+from superstore
+where category = 'Kitchen Supplies';
+
+#7. /*select every item with an average rating higher than 3.0 in the
+kitchen supplies category then ordering it by average rating in desecending order */
+
+select category, average_rating , price  
+from superstore
+where average_rating > 3.0 and category = 'Kitchen Supplies'
+order by average_rating desc;
+
+#8. /*checkthe stock quanitity for an item with an average rating of 3.0 */
+select stock_quantity, average_rating 
+from superstore
+where average_rating > 3.0;
+
+#9. /* check the stock quanitity for an item with an average ratingover 3.0 and in the category electornics while also showing the price and item name*/
+select item_name, stock_quantity, average_rating, category, price 
+from superstore
+where average_rating > 3 and category = 'Electronics';
+
+#10./* check the stock of air purifiers*/
+select item_name , stock_quantity 
+from superstore
+where item_name = 'Air Purifier';
